@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 const authRoutes = require('./routes/auth.routes');
-const categoriaRoutes = require('./routes/categoria.routes');
+const categoriaRoutes = require('./routes/categorias.routes');
 const movimientoRoutes = require('./routes/movimiento.routes');
 
 app.use('/api/categorias', categoriaRoutes);

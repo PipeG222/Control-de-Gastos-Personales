@@ -4,7 +4,7 @@ const auth = require('../middlewares/authMiddleware');
 const movimientoController = require('../controllers/movimiento.controller');
 
 router.get('/', auth, movimientoController.obtenerMovimientos);
-router.get('/', auth, movimientoController.crearMovimiento);
-router.post('/', auth, movimientoController.eliminarMovimiento);
+router.post('/crear', auth, movimientoController.crearMovimiento);
+router.post('/:id', auth, movimientoController.eliminarMovimiento);
 
 module.exports = router;

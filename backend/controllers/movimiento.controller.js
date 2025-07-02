@@ -19,26 +19,32 @@ exports.obtenerMovimientos = async (req, res) => {
   }
 };
 exports.crearMovimiento = async (req, res) => {
-  const { id_categoria, monto, descripcion, fecha } = req.body;
+  const { descripcion, monto, id_categoria, fecha } = req.body;
   const id_usuario = req.user.id;
 
-  if (!id_categoria || !monto || !fecha) {
-    return res.status(400).json({ error: 'Campos obligatorios faltantes' });
-  }
 
   try {
-    await pool.execute(
-      `INSERT INTO movimientos (id_usuario, id_categoria, monto, descripcion, fecha)
-       VALUES (?, ?, ?, ?, ?)`,
-      [id_usuario, id_categoria, monto, descripcion || '', fecha]
+    const [result] = await pool.execute(
+      "INSERT INTO movimientos (descripcion, monto, id_categoria, fecha, id_usuario) VALUES (?, ?, ?, ?, ?)",
+      [descripcion, monto, id_categoria, fecha, id_usuario]
     );
 
-    res.status(201).json({ message: 'Movimiento registrado correctamente' });
+    const nuevoMovimiento = {
+      id: result.insertId,
+      descripcion,
+      monto,
+      id_categoria,
+      fecha,
+      id_usuario,
+    };
+
+    res.status(201).json(nuevoMovimiento);
   } catch (error) {
-    console.error('Error al crear movimiento:', error);
-    res.status(500).json({ error: 'Error al crear movimiento' });
+    console.error("Error al crear movimiento:", error);
+    res.status(500).json({ error: "Error al crear movimiento" });
   }
 };
+
 exports.eliminarMovimiento = async (req, res) => {
   const idMovimiento = req.params.id;
   const idUsuario = req.user.id;

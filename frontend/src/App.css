@@ -1,0 +1,16 @@
+/* Estilo base limpio para app Bootstrap */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #212529;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Opcional: eliminar centrado del root */
+#root {
+  margin: 0;
+  padding: 0;
+}
+
+/* Puedes agregar estilos específicos si los necesitas más adelante */
